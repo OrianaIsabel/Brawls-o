@@ -1,9 +1,31 @@
-import example.pepita
+import example.*
 
-describe "group of tests for pepita" {
+describe "Grupo de tests para brawl" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  const thom = new Arquero(copas = 20, agilidad = 60, rango = 400)
+  const jonny = new Guerrera(copas = 10, tieneEstrategia = false, fuerza = 500)
+  const collin = new Ballestero(copas = 30, agilidad = 60, rango = 200)
+  const ed = new Guerrera(copas = 10, tieneEstrategia = true, fuerza = 500)
+  const phil = new Guerrera(copas = 50, tieneEstrategia = true, fuerza = 500)
+
+  const radiohead = new Equipo(integrantes = [thom, jonny, collin, ed, phil])
+  const concierto = new MisionEquipo(participante = radiohead)
+
+  test "Los participantes de un equipo de 5 reciben 10 copas despues de superar una mision" {
+    assert.that(concierto.puedeSuperarse())
+    concierto.realizarse()
+    assert.equals(30, thom.copas())
+    assert.equals(20, jonny.copas())
+  }
+
+  const liam = new Arquero(copas = 5, agilidad = 60, rango = 200)
+  const noel = new Arquero(copas = 5, agilidad = 60, rango = 200)
+
+  const oasis = new Equipo(integrantes = [liam, noel])
+  const gira = new MisionEquipo(participante = oasis)
+
+  test "Envia error para un equipo no apto" {
+    assert.throwsExceptionWithMessage("Mision no puede comenzar", {gira.realizarse()})
   }
 
 }
